@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vishalthenics</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            color: white;
+            background:
+                linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.85)),
+                url("https://images.unsplash.com/photo-1598971639058-fab3c3109a00")
+                center/cover fixed;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 30px;
+            background: rgba(0,0,0,.75);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #00ff99;
+        }
+
+        nav button {
+            margin-left: 8px;
+        }
+
+        /* BUTTONS */
+
+        button {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            background: #00ff99;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #00cc7a;
+        }
+
+        .main-button {
+            font-size: 20px;
+            padding: 16px 35px;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0,255,153,.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(0,255,153,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0,255,153,0);
+            }
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .welcome-box h1 {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: #00ff99;
+        }
+
+        .welcome-box p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* HOME */
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            color: #00ff99;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 35px;
+        }
+
+        /* FORMS */
+
+        .form-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 70px auto;
+            padding: 35px;
+            background: rgba(0,0,0,.82);
+            border: 1px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,255,153,.15);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #00ff99;
+            margin-bottom: 25px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #555;
+            border-radius: 7px;
+            background: #111;
+            color: white;
+        }
+
+        .form-container button {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .switch span {
+            color: #00ff99;
+            cursor: pointer;
+        }
+
+        /* DASHBOARD */
+
+        .dashboard-title {
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        .dashboard-title h1 {
+            color: #00ff99;
+            font-size: 40px;
+        }
+
+        .section-title {
+            margin: 30px 0 20px;
+            color: #00ff99;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(10,10,10,.85);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff99;
+        }
+
+        .card h3 {
+            color: #00ff99;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .card a {
+            color: #00ff99;
+            text-decoration: none;
+        }
+
+        /* PLAN GENERATOR */
+
+        .generator {
+            max-width: 700px;
+            margin: 30px auto;
+            background: rgba(0,0,0,.85);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .generator h2 {
+            text-align: center;
+            color: #00ff99;
+            margin-bottom: 20px;
+        }
+
+        #planResult {
+            margin-top: 25px;
+            background: #111;
+            padding: 25px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        #planResult h3 {
+            color: #00ff99;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #aaa;
+        }
+
+        .service {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            background: rgba(0,0,0,.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        @media(max-width:600px) {
+
+            .welcome-box h1 {
+                font-size: 40px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            nav {
+                padding: 15px;
+            }
+
+            .page {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= WELCOME ================= -->
+
+<section id="welcomePage" class="page active">
+
+    <div class="welcome">
+
+        <div class="welcome-box">
+
+            <h1>VISHALTHENICS</h1>
+
+            <p>
+                Train your skills. Build your strength. Master calisthenics.
+            </p>
+
+            <button
+                class="main-button"
+                onclick="showPage('homePage')">
+                WELCOME
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="service">
+        UTC: 00 | Powered by Vishalthenics
+    </div>
+
+</section>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="homePage" class="page">
+
+    <nav>
+
+        <div class="logo">
+            VISHALTHENICS
+        </div>
+
+        <div>
+            <button onclick="showPage('signupPage')">
+                SIGN UP
+            </button>
+
+            <button onclick="showPage('loginPage')">
+                LOGIN
+            </button>
+        </div>
+
+    </nav>
+
+    <div class="hero">
+
+        <h1>CALISTHENICS TRAINING</h1>
+
+        <p>
+            Learn skills, improve your technique and create
+            a structured training plan.
+        </p>
+
+        <button onclick="showPage('signupPage')">
+            START TRAINING
+        </button>
+
+    </div>
+
+    <footer>
+        Customer Service: anasyt947@gmail.com
+    </footer>
+
+</section>
+
+
+<!-- ================= SIGN UP ================= -->
+
+<section id="signupPage" class="page">
+
+    <div class="form-container">
+
+        <h2>CREATE ACCOUNT</h2>
+
+        <form onsubmit="signup(event)">
+
+            <input
+                type="text"
+                id="signupUsername"
+                placeholder="Username"
+                required>
+
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Email"
+                required>
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Password"
+                minlength="8"
+                required>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                minlength="8"
+                required>
+
+            <button type="submit">
+                CREATE ACCOUNT
+            </button>
+
+        </form>
+
+        <div class="switch">
+
+            Already have an account?
+
+            <span onclick="showPage('loginPage')">
+                Login
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginPage" class="page">
+
+    <div class="form-container">
+
+        <h2>LOGIN</h2>
+
+        <form onsubmit="login(event)">
+
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Username"
+                required>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                required>
+
+            <button type="submit">
+                LOGIN
+            </button>
+
+        </form>
+
+        <div class="switch">
+
+            Don't have an account?
+
+            <span onclick="showPage('signupPage')">
+                Sign Up
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboardPage" class="page">
+
+    <nav>
+
+        <div class="logo">
+            VISHALTHENICS
+        </div>
+
+        <button onclick="showPage('homePage')">
+            LOGOUT
+        </button>
+
+    </nav>
+
+
+    <div class="dashboard-title">
+
+        <h1>
+            WELCOME, <span id="userDisplay">ATHLETE</span>
+        </h1>
+
+        <p>
+            Choose your training and generate your plan.
+        </p>
+
+    </div>
+
+
+    <!-- TRAINING TYPES -->
+
+    <h2 class="section-title">
+        TRAINING TYPES
+    </h2>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>STRENGTH</h3>
+
+            <p>
+                Build general strength using controlled
+                bodyweight exercises.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>CORE</h3>
+
+            <p>
+                Develop core control and stability.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>FLEXIBILITY</h3>
+
+            <p>
+                Work on mobility and comfortable movement.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>SKILL TRAINING</h3>
+
+            <p>
+                Learn calisthenics skills progressively.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKILLS -->
+
+    <h2 class="section-title">
+        SKILL TUTORIALS
+    </h2>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>HANDSTAND</h3>
+
+            <p>
+                Learn basic handstand technique.
+            </p>
+
+            <a
+                href="https://www.youtube.com/results?search_query=beginner+handstand+tutorial"
+                target="_blank">
+
+                WATCH TUTORIAL →
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>L-SIT</h3>
+
+            <p>
+                Learn the fundamentals of the L-sit.
+            </p>
+
+            <a
+                href="https://www.youtube.com/results?search_query=beginner+l-sit+tutorial"
+                target="_blank">
+
+                WATCH TUTORIAL →
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>PULL-UP</h3>
+
+            <p>
+                Learn controlled pull-up progression.
+            </p>
+
+            <a
+                href="https://www.youtube.com/results?search_query=beginner+pull+up+tutorial"
+                target="_blank">
+
+                WATCH TUTORIAL →
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>PUSH-UP</h3>
+
+            <p>
+                Practice proper push-up technique.
+            </p>
+
+            <a
+                href="https://www.youtube.com/results?search_query=proper+push+up+technique"
+                target="_blank">
+
+                WATCH TUTORIAL →
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAN GENERATOR -->
+
+    <h2 class="section-title">
+        PLAN GENERATOR
+    </h2>
+
+    <div class="generator">
+
+        <h2>
+            CREATE YOUR TRAINING PLAN
+        </h2>
+
+
+        <label>
+            Training Level
+        </label>
+
+        <select id="level">
+
+            <option value="Beginner">
+                Beginner
+            </option>
+
+            <option value="Intermediate">
+                Intermediate
+            </option>
+
+            <option value="Advanced">
+                Advanced
+            </option>
+
+        </select>
+
+
+        <label>
+            Main Goal
+        </label>
+
+        <select id="goal">
+
+            <option value="Strength">
+                Strength
+            </option>
+
+            <option value="Skill">
+                Skill Development
+            </option>
+
+            <option value="Handstand">
+                Handstand
+            </option>
+
+            <option value="Core">
+                Core
+            </option>
+
+            <option value="Pullup">
+                Pull-up
+            </option>
+
+        </select>
+
+
+        <label>
+            Training Days
+        </label>
+
+        <select id="days">
+
+            <option value="3">
+                3 Days
+            </option>
+
+            <option value="4">
+                4 Days
+            </option>
+
+            <option value="5">
+                5 Days
+            </option>
+
+        </select>
+
+
+        <button onclick="generatePlan()">
+            GENERATE PLAN
+        </button>
+
+
+        <div id="planResult">
+
+            Your generated plan will appear here.
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        Train progressively and focus on controlled technique.
+        Stop an exercise if you feel pain.
+
+    </footer>
+
+</section>
+
+
+<script>
+
+    /* ================= PAGE SYSTEM ================= */
+
+    function showPage(pageID) {
+
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(function(page) {
+
+            page.classList.remove("active");
+
+        });
+
+        document.getElementById(pageID)
+            .classList.add("active");
+
+        window.scrollTo(0, 0);
+    }
+
+
+    /* ================= SIGN UP ================= */
+
+    function signup(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("signupUsername").value;
+
+        const email =
+            document.getElementById("signupEmail").value;
+
+        const password =
+            document.getElementById("signupPassword").value;
+
+        const confirm =
+            document.getElementById("confirmPassword").value;
+
+
+        if (password !== confirm) {
+
+            alert("Passwords do not match.");
+
+            return;
+        }
+
+
+        /*
+            Temporary frontend demonstration.
+
+            The real Flask backend should handle
+            account creation and password hashing.
+        */
+
+        localStorage.setItem(
+            "username",
+            username
+        );
+
+        localStorage.setItem(
+            "email",
+            email
+        );
+
+
+        alert(
+            "Account created! You can now login."
+        );
+
+        showPage("loginPage");
+    }
+
+
+    /* ================= LOGIN ================= */
+
+    function login(event) {
+
+        event.preventDefault();
+
+
+        const username =
+            document.getElementById("loginUsername").value;
+
+
+        const savedUsername =
+            localStorage.getItem("username");
+
+
+        if (
+            savedUsername &&
+            username === savedUsername
+        ) {
+
+            document.getElementById(
+                "userDisplay"
+            ).textContent =
+                username.toUpperCase();
+
+
+            showPage("dashboardPage");
+
+        } else {
+
+            alert(
+                "Please create an account first."
+            );
+
+        }
+
+    }
+
+
+    /* ================= PLAN GENERATOR ================= */
+
+    function generatePlan() {
+
+        const level =
+            document.getElementById("level").value;
+
+        const goal =
+            document.getElementById("goal").value;
+
+        const days =
+            document.getElementById("days").value;
+
+
+        let exercises = "";
+
+
+        if (goal === "Strength") {
+
+            exercises = `
+                <ul>
+                    <li>Controlled push-up practice</li>
+                    <li>Bodyweight squat practice</li>
+                    <li>Assisted pulling practice</li>
+                    <li>Gentle core work</li>
+                </ul>
+            `;
+
+        }
+
+
+        else if (goal === "Skill") {
+
+            exercises = `
+                <ul>
+                    <li>Technique practice</li>
+                    <li>Balance exercises</li>
+                    <li>Basic pushing movements</li>
+                    <li>Basic pulling movements</li>
+                </ul>
+            `;
+
+        }
+
+
+        else if (goal === "Handstand") {
+
+            exercises = `
+                <ul>
+                    <li>Wrist preparation</li>
+                    <li>Wall-supported balance practice</li>
+                    <li>Shoulder control exercises</li>
+                    <li>Short technique sessions</li>
+                </ul>
+            `;
+
+        }
+
+
+        else if (goal === "Core") {
+
+            exercises = `
+                <ul>
+                    <li>Dead-bug variations</li>
+                    <li>Plank variations</li>
+                    <li>Hollow-body preparation</li>
+                    <li>Controlled leg exercises</li>
+                </ul>
+            `;
+
+        }
+
+
+        else if (goal === "Pullup") {
+
+            exercises = `
+                <ul>
+                    <li>Scapular control</li>
+                    <li>Assisted pull-ups</li>
+                    <li>Controlled pulling practice</li>
+                    <li>Grip practice</li>
+                </ul>
+            `;
+
+        }
+
+
+        document.getElementById(
+            "planResult"
+        ).innerHTML = `
+
+            <h3>YOUR PLAN</h3>
+
+            <p>
+                <strong>Level:</strong>
+                ${level}
+            </p>
+
+            <p>
+                <strong>Goal:</strong>
+                ${goal}
+            </p>
+
+            <p>
+                <strong>Days:</strong>
+                ${days} days per week
+            </p>
+
+            <br>
+
+            <h3>Suggested Focus</h3>
+
+            ${exercises}
+
+            <br>
+
+            <p>
+                Keep sessions controlled and allow
+                recovery between training days.
+            </p>
+
+        `;
+
+    }
+
+</script>
+
+</body>
+</html>
