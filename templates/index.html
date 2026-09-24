@@ -1,996 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Vishalthenics</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            color: white;
-            background:
-                linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.85)),
-                url("https://images.unsplash.com/photo-1598971639058-fab3c3109a00")
-                center/cover fixed;
-        }
-
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding: 30px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* NAVBAR */
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 30px;
-            background: rgba(0,0,0,.75);
-            border-bottom: 1px solid #333;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #00ff99;
-        }
-
-        nav button {
-            margin-left: 8px;
-        }
-
-        /* BUTTONS */
-
-        button {
-            border: none;
-            padding: 12px 22px;
-            border-radius: 8px;
-            background: #00ff99;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        button:hover {
-            transform: scale(1.05);
-            background: #00cc7a;
-        }
-
-        .main-button {
-            font-size: 20px;
-            padding: 16px 35px;
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0,255,153,.6);
-            }
-
-            70% {
-                box-shadow: 0 0 0 20px rgba(0,255,153,0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(0,255,153,0);
-            }
-        }
-
-        /* WELCOME */
-
-        .welcome {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .welcome-box h1 {
-            font-size: 60px;
-            margin-bottom: 15px;
-            color: #00ff99;
-        }
-
-        .welcome-box p {
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-
-        /* HOME */
-
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-        }
-
-        .hero h1 {
-            font-size: 55px;
-            color: #00ff99;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 35px;
-        }
-
-        /* FORMS */
-
-        .form-container {
-            width: 100%;
-            max-width: 450px;
-            margin: 70px auto;
-            padding: 35px;
-            background: rgba(0,0,0,.82);
-            border: 1px solid #333;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0,255,153,.15);
-        }
-
-        .form-container h2 {
-            text-align: center;
-            color: #00ff99;
-            margin-bottom: 25px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 14px;
-            margin: 10px 0;
-            border: 1px solid #555;
-            border-radius: 7px;
-            background: #111;
-            color: white;
-        }
-
-        .form-container button {
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .switch {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .switch span {
-            color: #00ff99;
-            cursor: pointer;
-        }
-
-        /* DASHBOARD */
-
-        .dashboard-title {
-            text-align: center;
-            padding: 40px 10px;
-        }
-
-        .dashboard-title h1 {
-            color: #00ff99;
-            font-size: 40px;
-        }
-
-        .section-title {
-            margin: 30px 0 20px;
-            color: #00ff99;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: rgba(10,10,10,.85);
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-            transition: .3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #00ff99;
-        }
-
-        .card h3 {
-            color: #00ff99;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            color: #ccc;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .card a {
-            color: #00ff99;
-            text-decoration: none;
-        }
-
-        /* PLAN GENERATOR */
-
-        .generator {
-            max-width: 700px;
-            margin: 30px auto;
-            background: rgba(0,0,0,.85);
-            padding: 30px;
-            border-radius: 15px;
-        }
-
-        .generator h2 {
-            text-align: center;
-            color: #00ff99;
-            margin-bottom: 20px;
-        }
-
-        #planResult {
-            margin-top: 25px;
-            background: #111;
-            padding: 25px;
-            border-radius: 10px;
-            line-height: 1.8;
-        }
-
-        #planResult h3 {
-            color: #00ff99;
-        }
-
-        /* FOOTER */
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            color: #aaa;
-        }
-
-        .service {
-            position: fixed;
-            right: 15px;
-            bottom: 15px;
-            background: rgba(0,0,0,.8);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        @media(max-width:600px) {
-
-            .welcome-box h1 {
-                font-size: 40px;
-            }
-
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            nav {
-                padding: 15px;
-            }
-
-            .page {
-                padding: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishalthenics — Skill Training</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{min-height:100vh;color:#fff;background:linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.92)),url("https://images.unsplash.com/photo-1598971639058-fab3c3109a00") center/cover fixed}
+.page{display:none;min-height:100vh;padding:20px}.page.active{display:block}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(0,0,0,.8);border-bottom:1px solid #333;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:800;color:#00ff99;letter-spacing:1px}
+button{border:0;padding:11px 18px;border-radius:8px;background:#00ff99;color:#000;font-weight:700;cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px);background:#00d982}
+button.secondary{background:#222;color:#fff;border:1px solid #444}
+button.danger{background:#ff5555;color:#fff}
+.welcome{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center}
+.welcome-box h1{font-size:clamp(42px,7vw,70px);color:#00ff99;margin-bottom:14px}.welcome-box p{font-size:19px;color:#ddd;margin-bottom:28px}
+.hero{text-align:center;padding:80px 20px}.hero h1{font-size:clamp(38px,6vw,58px);color:#00ff99;margin-bottom:16px}.hero p{font-size:19px;color:#ddd;margin-bottom:30px}
+.form-container,.generator{max-width:850px;margin:55px auto;padding:30px;background:rgba(0,0,0,.88);border:1px solid #333;border-radius:16px;box-shadow:0 0 30px rgba(0,255,153,.08)}
+.form-container{max-width:450px}.form-container h2,.generator h2{text-align:center;color:#00ff99;margin-bottom:22px}
+input,select{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #555;border-radius:8px;background:#111;color:#fff}
+.form-container button{width:100%;margin-top:8px}.switch{text-align:center;margin-top:18px;color:#bbb}.switch span{color:#00ff99;cursor:pointer}
+.dashboard-title{text-align:center;padding:35px 10px}.dashboard-title h1{color:#00ff99;font-size:40px}
+.section-title{margin:30px 0 18px;color:#00ff99}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:rgba(10,10,10,.9);border:1px solid #333;border-radius:13px;padding:22px;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#00ff99}.card h3{color:#00ff99;margin-bottom:10px}.card p{color:#ccc;line-height:1.55;margin-bottom:14px}
+.card button{width:100%}.skill-icon{font-size:32px;margin-bottom:8px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.progress-wrap{background:#222;border-radius:10px;height:10px;overflow:hidden;margin:12px 0}.progress-bar{height:100%;background:#00ff99;width:0;transition:.4s}
+.plan-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.plan-toolbar button{flex:1;min-width:150px}
+.plan-day{background:#151515;border:1px solid #333;border-radius:12px;margin:12px 0;overflow:hidden}
+.plan-day summary{cursor:pointer;padding:16px;font-weight:700;color:#00ff99;list-style:none}.plan-day summary::-webkit-details-marker{display:none}
+.day-body{padding:0 16px 18px}.exercise{padding:12px 0;border-top:1px solid #2c2c2c}.exercise strong{color:#fff}.exercise small{display:block;color:#aaa;margin-top:4px}
+.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#183c2e;color:#00ff99;font-size:12px;margin:3px}
+.notice{background:#171717;border-left:4px solid #00ff99;padding:14px;border-radius:8px;color:#ccc;line-height:1.5;margin:14px 0}
+.tutorial-link{display:inline-block;margin-top:8px;color:#00ff99;text-decoration:none;font-weight:700}
+.empty{text-align:center;padding:30px;color:#aaa}
+footer{text-align:center;padding:30px;color:#999}
+.hidden{display:none!important}
+@media(max-width:600px){nav{padding:13px}.page{padding:12px}.hero{padding:55px 10px}.dashboard-title h1{font-size:31px}.form-container,.generator{padding:20px;margin:25px auto}}
+</style>
 </head>
-
 <body>
 
-<!-- ================= WELCOME ================= -->
-
 <section id="welcomePage" class="page active">
-
-    <div class="welcome">
-
-        <div class="welcome-box">
-
-            <h1>VISHALTHENICS</h1>
-
-            <p>
-                Train your skills. Build your strength. Master calisthenics.
-            </p>
-
-            <button
-                class="main-button"
-                onclick="showPage('homePage')">
-                WELCOME
-            </button>
-
-        </div>
-
-    </div>
-
-    <div class="service">
-        UTC: 00 | Powered by Vishalthenics
-    </div>
-
+  <div class="welcome"><div class="welcome-box">
+    <h1>VISHALTHENICS</h1>
+    <p>Train your skills. Build control. Progress safely.</p>
+    <button onclick="showPage('homePage')">WELCOME</button>
+  </div></div>
 </section>
-
-
-<!-- ================= HOME ================= -->
 
 <section id="homePage" class="page">
-
-    <nav>
-
-        <div class="logo">
-            VISHALTHENICS
-        </div>
-
-        <div>
-            <button onclick="showPage('signupPage')">
-                SIGN UP
-            </button>
-
-            <button onclick="showPage('loginPage')">
-                LOGIN
-            </button>
-        </div>
-
-    </nav>
-
-    <div class="hero">
-
-        <h1>CALISTHENICS TRAINING</h1>
-
-        <p>
-            Learn skills, improve your technique and create
-            a structured training plan.
-        </p>
-
-        <button onclick="showPage('signupPage')">
-            START TRAINING
-        </button>
-
-    </div>
-
-    <footer>
-        Customer Service: anasyt947@gmail.com
-    </footer>
-
+<nav><div class="logo">VISHALTHENICS</div><div>
+  <button onclick="showPage('signupPage')">SIGN UP</button>
+  <button class="secondary" onclick="showPage('loginPage')">LOGIN</button>
+</div></nav>
+<div class="hero">
+  <h1>CALISTHENICS SKILL TRAINING</h1>
+  <p>Choose a skill, explore its progressions, and generate a structured 30-day practice plan.</p>
+  <button onclick="showPage('signupPage')">START TRAINING</button>
+</div>
+<footer>Practice with controlled technique and stop if an exercise causes pain.</footer>
 </section>
-
-
-<!-- ================= SIGN UP ================= -->
 
 <section id="signupPage" class="page">
-
-    <div class="form-container">
-
-        <h2>CREATE ACCOUNT</h2>
-
-        <form onsubmit="signup(event)">
-
-            <input
-                type="text"
-                id="signupUsername"
-                placeholder="Username"
-                required>
-
-            <input
-                type="email"
-                id="signupEmail"
-                placeholder="Email"
-                required>
-
-            <input
-                type="password"
-                id="signupPassword"
-                placeholder="Password"
-                minlength="8"
-                required>
-
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                minlength="8"
-                required>
-
-            <button type="submit">
-                CREATE ACCOUNT
-            </button>
-
-        </form>
-
-        <div class="switch">
-
-            Already have an account?
-
-            <span onclick="showPage('loginPage')">
-                Login
-            </span>
-
-        </div>
-
-    </div>
-
+<div class="form-container">
+<h2>CREATE ACCOUNT</h2>
+<form onsubmit="signup(event)">
+<input type="text" id="signupUsername" placeholder="Username" required>
+<input type="email" id="signupEmail" placeholder="Email" required>
+<input type="password" id="signupPassword" placeholder="Password" minlength="8" required>
+<input type="password" id="confirmPassword" placeholder="Confirm Password" minlength="8" required>
+<button>CREATE ACCOUNT</button>
+</form>
+<div class="switch">Already have an account? <span onclick="showPage('loginPage')">Login</span></div>
+</div>
 </section>
-
-
-<!-- ================= LOGIN ================= -->
 
 <section id="loginPage" class="page">
-
-    <div class="form-container">
-
-        <h2>LOGIN</h2>
-
-        <form onsubmit="login(event)">
-
-            <input
-                type="text"
-                id="loginUsername"
-                placeholder="Username"
-                required>
-
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Password"
-                required>
-
-            <button type="submit">
-                LOGIN
-            </button>
-
-        </form>
-
-        <div class="switch">
-
-            Don't have an account?
-
-            <span onclick="showPage('signupPage')">
-                Sign Up
-            </span>
-
-        </div>
-
-    </div>
-
+<div class="form-container">
+<h2>LOGIN</h2>
+<form onsubmit="login(event)">
+<input type="text" id="loginUsername" placeholder="Username" required>
+<input type="password" id="loginPassword" placeholder="Password" required>
+<button>LOGIN</button>
+</form>
+<div class="switch">Don't have an account? <span onclick="showPage('signupPage')">Sign Up</span></div>
+</div>
 </section>
-
-
-<!-- ================= DASHBOARD ================= -->
 
 <section id="dashboardPage" class="page">
-
-    <nav>
-
-        <div class="logo">
-            VISHALTHENICS
-        </div>
-
-        <button onclick="showPage('homePage')">
-            LOGOUT
-        </button>
-
-    </nav>
-
-
-    <div class="dashboard-title">
-
-        <h1>
-            WELCOME, <span id="userDisplay">ATHLETE</span>
-        </h1>
-
-        <p>
-            Choose your training and generate your plan.
-        </p>
-
-    </div>
-
-
-    <!-- TRAINING TYPES -->
-
-    <h2 class="section-title">
-        TRAINING TYPES
-    </h2>
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h3>STRENGTH</h3>
-
-            <p>
-                Build general strength using controlled
-                bodyweight exercises.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>CORE</h3>
-
-            <p>
-                Develop core control and stability.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>FLEXIBILITY</h3>
-
-            <p>
-                Work on mobility and comfortable movement.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>SKILL TRAINING</h3>
-
-            <p>
-                Learn calisthenics skills progressively.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- SKILLS -->
-
-    <h2 class="section-title">
-        SKILL TUTORIALS
-    </h2>
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h3>HANDSTAND</h3>
-
-            <p>
-                Learn basic handstand technique.
-            </p>
-
-            <a
-                href="https://www.youtube.com/results?search_query=beginner+handstand+tutorial"
-                target="_blank">
-
-                WATCH TUTORIAL →
-
-            </a>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>L-SIT</h3>
-
-            <p>
-                Learn the fundamentals of the L-sit.
-            </p>
-
-            <a
-                href="https://www.youtube.com/results?search_query=beginner+l-sit+tutorial"
-                target="_blank">
-
-                WATCH TUTORIAL →
-
-            </a>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>PULL-UP</h3>
-
-            <p>
-                Learn controlled pull-up progression.
-            </p>
-
-            <a
-                href="https://www.youtube.com/results?search_query=beginner+pull+up+tutorial"
-                target="_blank">
-
-                WATCH TUTORIAL →
-
-            </a>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>PUSH-UP</h3>
-
-            <p>
-                Practice proper push-up technique.
-            </p>
-
-            <a
-                href="https://www.youtube.com/results?search_query=proper+push+up+technique"
-                target="_blank">
-
-                WATCH TUTORIAL →
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- PLAN GENERATOR -->
-
-    <h2 class="section-title">
-        PLAN GENERATOR
-    </h2>
-
-    <div class="generator">
-
-        <h2>
-            CREATE YOUR TRAINING PLAN
-        </h2>
-
-
-        <label>
-            Training Level
-        </label>
-
-        <select id="level">
-
-            <option value="Beginner">
-                Beginner
-            </option>
-
-            <option value="Intermediate">
-                Intermediate
-            </option>
-
-            <option value="Advanced">
-                Advanced
-            </option>
-
-        </select>
-
-
-        <label>
-            Main Goal
-        </label>
-
-        <select id="goal">
-
-            <option value="Strength">
-                Strength
-            </option>
-
-            <option value="Skill">
-                Skill Development
-            </option>
-
-            <option value="Handstand">
-                Handstand
-            </option>
-
-            <option value="Core">
-                Core
-            </option>
-
-            <option value="Pullup">
-                Pull-up
-            </option>
-
-        </select>
-
-
-        <label>
-            Training Days
-        </label>
-
-        <select id="days">
-
-            <option value="3">
-                3 Days
-            </option>
-
-            <option value="4">
-                4 Days
-            </option>
-
-            <option value="5">
-                5 Days
-            </option>
-
-        </select>
-
-
-        <button onclick="generatePlan()">
-            GENERATE PLAN
-        </button>
-
-
-        <div id="planResult">
-
-            Your generated plan will appear here.
-
-        </div>
-
-    </div>
-
-
-    <footer>
-
-        Train progressively and focus on controlled technique.
-        Stop an exercise if you feel pain.
-
-    </footer>
-
+<nav><div class="logo">VISHALTHENICS</div><button class="secondary" onclick="logout()">LOGOUT</button></nav>
+<div class="dashboard-title">
+<h1>WELCOME, <span id="userDisplay">ATHLETE</span></h1>
+<p>Choose your skill or open the advanced plan generator.</p>
+</div>
+
+<h2 class="section-title">SKILL TRAINING</h2>
+<div id="skillCards" class="cards"></div>
+
+<h2 class="section-title">ADVANCED 30-DAY PLAN GENERATOR</h2>
+<div class="generator">
+<h2>BUILD YOUR PLAN</h2>
+<div class="filters">
+<div><label>Skill</label><select id="skillSelect"></select></div>
+<div><label>Level</label><select id="level">
+<option value="beginner">Beginner</option>
+<option value="intermediate">Intermediate</option>
+<option value="advanced">Advanced</option>
+</select></div>
+<div><label>Sessions / week</label><select id="frequency">
+<option value="3">3</option><option value="4">4</option><option value="5">5</option>
+</select></div>
+<div><label>Session length</label><select id="duration">
+<option value="20">20 min</option><option value="30">30 min</option><option value="45">45 min</option>
+</select></div>
+</div>
+<button onclick="generatePlan()">GENERATE 30-DAY PLAN</button>
+<div id="planResult" class="empty">Select your skill and generate a plan.</div>
+</div>
+
+<h2 class="section-title">HOW THE PROGRESSION SYSTEM WORKS</h2>
+<div class="cards">
+<div class="card"><h3>1. Foundation</h3><p>Build mobility, joint preparation, basic strength and body control before harder variations.</p></div>
+<div class="card"><h3>2. Progression</h3><p>Increase difficulty gradually through easier variations, holds, controlled reps and technique drills.</p></div>
+<div class="card"><h3>3. Skill Practice</h3><p>Practice the selected skill with short, high-quality sets and adequate recovery.</p></div>
+<div class="card"><h3>4. Deload & Test</h3><p>Recovery days reduce fatigue. The final days can be used for a controlled technique check rather than forcing a maximum.</p></div>
+</div>
+<footer>Educational training planner. It is not a substitute for a qualified coach.</footer>
 </section>
 
+<section id="skillPage" class="page">
+<nav><div class="logo">VISHALTHENICS</div><button class="secondary" onclick="showPage('dashboardPage')">← DASHBOARD</button></nav>
+<div id="skillContent"></div>
+</section>
 
 <script>
+const skills = {
+  handstand: {
+    name:"Handstand", icon:"🤸",
+    description:"Balance, shoulder control and body-line practice.",
+    stages:["Wrist & shoulder preparation","Pike / elevated handstand","Wall handstand","Chest-to-wall line","Heel pulls / balance drills","Freestanding practice"],
+    exercises:["Wrist circles","Pike hold","Wall handstand","Chest-to-wall handstand","Wall shoulder taps","Handstand balance drills"],
+    drills:["Wall line drill","Toe pull-away drill","Heel pull drill","Controlled kick-up practice"],
+    tutorial:"https://www.youtube.com/results?search_query=handstand+progression+tutorial+calisthenics"
+  },
+  planche: {
+    name:"Planche", icon:"🔥",
+    description:"Straight-arm pushing skill requiring progressive strength and control.",
+    stages:["Wrist preparation","Planche lean","Tuck planche","Advanced tuck","Straddle planche","Full planche"],
+    exercises:["Wrist preparation","Planche lean","Scapular protraction drill","Tuck planche practice","Pseudo planche push-up","Hollow-body hold"],
+    drills:["Lean measurement drill","Protraction hold","Tuck entry drill","Body-line drill"],
+    tutorial:"https://www.youtube.com/results?search_query=planche+progression+tutorial+calisthenics"
+  },
+  bentArmPlanche: {
+    name:"Bent Arm Planche", icon:"💪",
+    description:"Bent-arm pressing strength and planche-specific control.",
+    stages:["Push-up foundation","Pseudo planche push-up","Deep lean push-up","Tuck bent-arm planche","Advanced tuck","Straddle progression"],
+    exercises:["Push-ups","Pseudo planche push-ups","Planche lean","Tuck support","Slow eccentric push-up","Core compression"],
+    drills:["Lean angle drill","Slow eccentric drill","Tuck position drill","Scapular control drill"],
+    tutorial:"https://www.youtube.com/results?search_query=bent+arm+planche+progression+tutorial"
+  },
+  humanflag: {
+    name:"Human Flag", icon:"🚩",
+    description:"Lateral pulling/pushing control with progressive flag variations.",
+    stages:["Side plank & core","Vertical flag setup","Tuck flag","One-leg flag","Straddle flag","Full flag"],
+    exercises:["Side plank","Hanging knee raise","Scapular pull","Vertical flag practice","Tuck flag","Grip practice"],
+    drills:["Pole grip drill","Tuck entry drill","Hip alignment drill","Short hold practice"],
+    tutorial:"https://www.youtube.com/results?search_query=human+flag+progression+tutorial+calisthenics"
+  },
+  frontlever: {
+    name:"Front Lever", icon:"🪽",
+    description:"Straight-arm pulling skill built through body-line and scapular control.",
+    stages:["Active hang","Tuck front lever","Advanced tuck","One-leg front lever","Straddle front lever","Full front lever"],
+    exercises:["Active hang","Scapular pull-ups","Tuck front lever","Front lever raises","Hollow hold","Rows"],
+    drills:["Tuck hold drill","Scapular depression drill","Body-line drill","Controlled raise drill"],
+    tutorial:"https://www.youtube.com/results?search_query=front+lever+progression+tutorial+calisthenics"
+  },
+  backlever: {
+    name:"Back Lever", icon:"🔄",
+    description:"Progressive straight-arm shoulder extension and body-line control.",
+    stages:["German hang mobility","Tuck back lever","Advanced tuck","One-leg variation","Straddle","Full back lever"],
+    exercises:["Gentle shoulder mobility","German hang preparation","Tuck back lever","Skin-the-cat preparation","Hollow hold","Scapular control"],
+    drills:["Tuck entry drill","Body-line drill","Controlled extension drill","Shoulder mobility drill"],
+    tutorial:"https://www.youtube.com/results?search_query=back+lever+progression+tutorial+calisthenics"
+  },
+  isit: {
+    name:"I-Sit", icon:"🧘",
+    description:"Compression, hip-flexor and straight-leg support control.",
+    stages:["L-sit foundation","Tuck support","One-leg extension","V-sit compression","I-sit progression","Advanced compression"],
+    exercises:["Seated compression","L-sit tuck","L-sit","Pike compression","Leg lifts","Support hold"],
+    drills:["Toe lift drill","Compression pulses","Straight-leg extension","Support transition drill"],
+    tutorial:"https://www.youtube.com/results?search_query=i+sit+calisthenics+progression+tutorial"
+  },
+  hspu: {
+    name:"Handstand Push-ups", icon:"⬆️",
+    description:"Vertical pressing built from stable handstand and controlled range of motion.",
+    stages:["Pike push-up","Elevated pike push-up","Wall handstand hold","Partial ROM HSPU","Full wall HSPU","Freestanding progression"],
+    exercises:["Pike push-up","Elevated pike push-up","Wall handstand","Negative HSPU","Wall HSPU","Shoulder taps"],
+    drills:["Head-position drill","Controlled negative","Wall line drill","Pressing range drill"],
+    tutorial:"https://www.youtube.com/results?search_query=handstand+push+up+progression+tutorial"
+  },
+  oneArmHandstand: {
+    name:"One-Arm Handstand", icon:"☝️",
+    description:"An advanced balance skill requiring a strong handstand base and progressive weight shifting.",
+    stages:["Freestanding handstand","Weight shifts","Side-to-side balance","Finger-assisted one-arm drills","Partial assistance","One-arm progression"],
+    exercises:["Wall handstand","Freestanding balance","Shoulder shifts","Finger-assisted shifts","Wrist preparation","Core line drills"],
+    drills:["Weight-shift drill","Shoulder-stack drill","Finger assistance drill","Short balance attempts"],
+    tutorial:"https://www.youtube.com/results?search_query=one+arm+handstand+progression+tutorial"
+  }
+};
 
-    /* ================= PAGE SYSTEM ================= */
+const phaseNames = ["Foundation","Technique","Strength","Progression","Integration","Recovery/Test"];
+const restEvery = [7,14,21,28,30];
 
-    function showPage(pageID) {
-
-        const pages = document.querySelectorAll(".page");
-
-        pages.forEach(function(page) {
-
-            page.classList.remove("active");
-
-        });
-
-        document.getElementById(pageID)
-            .classList.add("active");
-
-        window.scrollTo(0, 0);
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
+}
+function signup(e){
+  e.preventDefault();
+  const u=document.getElementById("signupUsername").value.trim();
+  const p=document.getElementById("signupPassword").value;
+  const c=document.getElementById("confirmPassword").value;
+  if(p!==c){alert("Passwords do not match.");return}
+  localStorage.setItem("username",u);
+  localStorage.setItem("passwordDemo",p);
+  alert("Account created for this demo. Now log in.");
+  showPage("loginPage");
+}
+function login(e){
+  e.preventDefault();
+  const u=document.getElementById("loginUsername").value.trim();
+  const saved=localStorage.getItem("username");
+  if(saved && u===saved){
+    document.getElementById("userDisplay").textContent=u.toUpperCase();
+    showPage("dashboardPage");
+  }else alert("Please create an account first.");
+}
+function logout(){showPage("homePage")}
+function populateSkills(){
+  const select=document.getElementById("skillSelect");
+  select.innerHTML=Object.entries(skills).map(([id,s])=>`<option value="${id}">${s.name}</option>`).join("");
+  document.getElementById("skillCards").innerHTML=Object.entries(skills).map(([id,s])=>`
+    <div class="card">
+      <div class="skill-icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <p>${s.description}</p>
+      <button onclick="openSkill('${id}')">VIEW 30-DAY TRAINING</button>
+    </div>`).join("");
+}
+function openSkill(id){
+  const s=skills[id];
+  document.getElementById("skillContent").innerHTML=`
+    <div class="dashboard-title">
+      <div class="skill-icon">${s.icon}</div><h1>${s.name.toUpperCase()}</h1>
+      <p>${s.description}</p>
+    </div>
+    <div class="generator">
+      <h2>PROGRESSION ROADMAP</h2>
+      <div>${s.stages.map((x,i)=>`<span class="badge">${i+1}. ${x}</span>`).join("")}</div>
+      <div class="notice"><strong>Technique first:</strong> use a progression you can control. Do not force advanced holds or train through pain.</div>
+      <h2>EXERCISES & DRILLS</h2>
+      <div class="cards">
+        <div class="card"><h3>Exercises</h3><p>${s.exercises.map(x=>"• "+x).join("<br>")}</p></div>
+        <div class="card"><h3>Skill Drills</h3><p>${s.drills.map(x=>"• "+x).join("<br>")}</p></div>
+      </div>
+      <a class="tutorial-link" href="${s.tutorial}" target="_blank" rel="noopener">WATCH TUTORIAL SEARCH →</a>
+      <div class="plan-toolbar">
+        <button onclick="quickGenerate('${id}')">GENERATE 30-DAY PLAN</button>
+        <button class="secondary" onclick="showPage('dashboardPage')">CHOOSE ANOTHER SKILL</button>
+      </div>
+      <div id="skillPlan"></div>
+    </div>`;
+  showPage("skillPage");
+}
+function quickGenerate(id){
+  document.getElementById("skillSelect").value=id;
+  const plan=buildPlan(id,"intermediate",4,30);
+  renderPlan(plan,"skillPlan");
+}
+function phaseFor(day){
+  if(day<=5)return 0;if(day<=10)return 1;if(day<=15)return 2;
+  if(day<=21)return 3;if(day<=27)return 4;return 5;
+}
+function intensity(level,phase){
+  const base={beginner:1,intermediate:2,advanced:3}[level]||2;
+  return Math.min(3,Math.max(1,base+(phase>=2?0:0)));
+}
+function buildPlan(id,level,freq,duration){
+  const s=skills[id], plan=[];
+  for(let day=1;day<=30;day++){
+    const phase=phaseFor(day);
+    const recovery=restEvery.includes(day);
+    const train=((day-1)%7)<Number(freq);
+    if(recovery || !train){
+      plan.push({day,phase:phaseNames[phase],rest:true,focus:recovery?"Recovery / technique review":"Recovery / mobility"});
+      continue;
     }
-
-
-    /* ================= SIGN UP ================= */
-
-    function signup(event) {
-
-        event.preventDefault();
-
-        const username =
-            document.getElementById("signupUsername").value;
-
-        const email =
-            document.getElementById("signupEmail").value;
-
-        const password =
-            document.getElementById("signupPassword").value;
-
-        const confirm =
-            document.getElementById("confirmPassword").value;
-
-
-        if (password !== confirm) {
-
-            alert("Passwords do not match.");
-
-            return;
-        }
-
-
-        /*
-            Temporary frontend demonstration.
-
-            The real Flask backend should handle
-            account creation and password hashing.
-        */
-
-        localStorage.setItem(
-            "username",
-            username
-        );
-
-        localStorage.setItem(
-            "email",
-            email
-        );
-
-
-        alert(
-            "Account created! You can now login."
-        );
-
-        showPage("loginPage");
-    }
-
-
-    /* ================= LOGIN ================= */
-
-    function login(event) {
-
-        event.preventDefault();
-
-
-        const username =
-            document.getElementById("loginUsername").value;
-
-
-        const savedUsername =
-            localStorage.getItem("username");
-
-
-        if (
-            savedUsername &&
-            username === savedUsername
-        ) {
-
-            document.getElementById(
-                "userDisplay"
-            ).textContent =
-                username.toUpperCase();
-
-
-            showPage("dashboardPage");
-
-        } else {
-
-            alert(
-                "Please create an account first."
-            );
-
-        }
-
-    }
-
-
-    /* ================= PLAN GENERATOR ================= */
-
-    function generatePlan() {
-
-        const level =
-            document.getElementById("level").value;
-
-        const goal =
-            document.getElementById("goal").value;
-
-        const days =
-            document.getElementById("days").value;
-
-
-        let exercises = "";
-
-
-        if (goal === "Strength") {
-
-            exercises = `
-                <ul>
-                    <li>Controlled push-up practice</li>
-                    <li>Bodyweight squat practice</li>
-                    <li>Assisted pulling practice</li>
-                    <li>Gentle core work</li>
-                </ul>
-            `;
-
-        }
-
-
-        else if (goal === "Skill") {
-
-            exercises = `
-                <ul>
-                    <li>Technique practice</li>
-                    <li>Balance exercises</li>
-                    <li>Basic pushing movements</li>
-                    <li>Basic pulling movements</li>
-                </ul>
-            `;
-
-        }
-
-
-        else if (goal === "Handstand") {
-
-            exercises = `
-                <ul>
-                    <li>Wrist preparation</li>
-                    <li>Wall-supported balance practice</li>
-                    <li>Shoulder control exercises</li>
-                    <li>Short technique sessions</li>
-                </ul>
-            `;
-
-        }
-
-
-        else if (goal === "Core") {
-
-            exercises = `
-                <ul>
-                    <li>Dead-bug variations</li>
-                    <li>Plank variations</li>
-                    <li>Hollow-body preparation</li>
-                    <li>Controlled leg exercises</li>
-                </ul>
-            `;
-
-        }
-
-
-        else if (goal === "Pullup") {
-
-            exercises = `
-                <ul>
-                    <li>Scapular control</li>
-                    <li>Assisted pull-ups</li>
-                    <li>Controlled pulling practice</li>
-                    <li>Grip practice</li>
-                </ul>
-            `;
-
-        }
-
-
-        document.getElementById(
-            "planResult"
-        ).innerHTML = `
-
-            <h3>YOUR PLAN</h3>
-
-            <p>
-                <strong>Level:</strong>
-                ${level}
-            </p>
-
-            <p>
-                <strong>Goal:</strong>
-                ${goal}
-            </p>
-
-            <p>
-                <strong>Days:</strong>
-                ${days} days per week
-            </p>
-
-            <br>
-
-            <h3>Suggested Focus</h3>
-
-            ${exercises}
-
-            <br>
-
-            <p>
-                Keep sessions controlled and allow
-                recovery between training days.
-            </p>
-
-        `;
-
-    }
-
+    const intensityLevel=intensity(level,phase);
+    const e1=s.exercises[(day-1)%s.exercises.length];
+    const e2=s.exercises[day%s.exercises.length];
+    const drill=s.drills[(day-1)%s.drills.length];
+    const stage=s.stages[Math.min(s.stages.length-1,Math.floor((day-1)/6))];
+    const sets=2+intensityLevel;
+    const hold=level==="beginner"?"10–20 sec":level==="intermediate"?"15–30 sec":"20–40 sec";
+    plan.push({
+      day,phase:phaseNames[phase],rest:false,focus:stage,
+      exercises:[
+        {name:e1,detail:`${sets} sets • controlled quality • ${hold} where applicable`},
+        {name:e2,detail:`${sets} sets • leave comfortable reps in reserve`},
+        {name:drill,detail:`3–5 short practice rounds • reset between attempts`}
+      ],
+      warmup:"5–8 min: wrists/shoulders/hips + easy movement",
+      cooldown:"3–5 min: gentle mobility and breathing",
+      duration
+    });
+  }
+  return {skill:s,level,freq,duration,days:plan};
+}
+function renderPlan(plan,targetId){
+  const target=document.getElementById(targetId);
+  target.innerHTML=`
+    <div class="notice">
+      <strong>${plan.skill.name} — 30-Day Plan</strong><br>
+      Level: ${plan.level} • ${plan.freq} training days/week • ${plan.duration} min/session
+      <div class="progress-wrap"><div class="progress-bar" style="width:100%"></div></div>
+      The plan cycles foundation → technique → strength → progression → integration → recovery/test.
+    </div>
+    ${plan.days.map(d=>`
+      <details class="plan-day" ${d.day<=3?"open":""}>
+        <summary>DAY ${d.day} — ${d.phase} ${d.rest?"• RECOVERY":""}</summary>
+        <div class="day-body">
+          <p><span class="badge">${d.rest?"Recovery / Mobility":"Training"}</span>
+          <span class="badge">${d.focus}</span></p>
+          ${d.rest?`<p style="margin-top:12px;color:#ccc">Easy mobility, normal daily movement, technique notes and recovery. No need to force extra work.</p>`:
+          `<div class="exercise"><strong>Warm-up</strong><small>${d.warmup}</small></div>
+           ${d.exercises.map(x=>`<div class="exercise"><strong>${x.name}</strong><small>${x.detail}</small></div>`).join("")}
+           <div class="exercise"><strong>Cool-down</strong><small>${d.cooldown}</small></div>`}
+        </div>
+      </details>`).join("")}
+    <div class="notice"><strong>Progression rule:</strong> move to the next variation only when your current variation is controlled and repeatable. A 30-day plan is a framework, not a requirement to master the skill in 30 days.</div>`;
+}
+function generatePlan(){
+  const id=document.getElementById("skillSelect").value;
+  const level=document.getElementById("level").value;
+  const freq=Number(document.getElementById("frequency").value);
+  const duration=Number(document.getElementById("duration").value);
+  renderPlan(buildPlan(id,level,freq,duration),"planResult");
+}
+populateSkills();
 </script>
-
 </body>
 </html>
