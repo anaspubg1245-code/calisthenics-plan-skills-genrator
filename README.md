@@ -1,2 +1,18 @@
-# my-frist-plan-generator-web
-the best web that geerates insane plans and easily coded in clean way easy to understand also
+# My Website
+
+Welcome to my website!
+
+## Features
+
+- HTML
+- CSS
+- JavaScript
+- Responsive design
+
+## How to Run
+
+Open `index.html` in your browser.
+
+## Author
+
+B A D - D E M O N
